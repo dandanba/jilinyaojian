@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.acctrue.jlyj.Config;
 import com.acctrue.jlyj.R;
 import com.acctrue.jlyj.adapter.FMAdapter2;
 import com.acctrue.jlyj.entity.CodeInfo;
@@ -194,7 +195,7 @@ public class SaleOutActivity extends UsbprinterActivity implements OnFocusChange
 
 		purchaseInListView.setAdapter(adapter);
 
-		
+		if(!Config.sKeyIgnore){
 		//∆¡±Œ»Ìº¸≈Ã
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -220,6 +221,7 @@ public class SaleOutActivity extends UsbprinterActivity implements OnFocusChange
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
 		}
 	}
 	

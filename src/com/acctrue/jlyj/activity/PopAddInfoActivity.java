@@ -3,6 +3,7 @@ package com.acctrue.jlyj.activity;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.acctrue.jlyj.Config;
 import com.acctrue.jlyj.R;
 import com.acctrue.jlyj.R.layout;
 import com.acctrue.jlyj.R.menu;
@@ -37,6 +38,7 @@ public class PopAddInfoActivity extends Activity {
 		dateEditText = (EditText)this.findViewById(R.id.date_input_et);
 
 		//∆¡±Œ»Ìº¸≈Ã
+		if(!Config.sKeyIgnore){
 				this.getWindow().setSoftInputMode(
 						WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 				Method setShowSoftInputOnFocus = null;
@@ -65,7 +67,7 @@ public class PopAddInfoActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		
+		}
 		bundle=getIntent().getExtras();
 		
 	}

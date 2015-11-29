@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.acctrue.jlyj.Config;
 import com.acctrue.jlyj.R;
 import com.acctrue.jlyj.adapter.FMAdapter;
 import com.acctrue.jlyj.entity.CodeInfo;
@@ -175,32 +176,33 @@ OnFocusChangeListener{
 
 		purchaseInListView.setAdapter(adapter);
 
-		
-		//∆¡±Œ»Ìº¸≈Ã
-		this.getWindow().setSoftInputMode(
-				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		Method setShowSoftInputOnFocus = null;
-		try {
-			setShowSoftInputOnFocus = codeInputEditText.getClass().getMethod(
-					"setShowSoftInputOnFocus", boolean.class);
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(setShowSoftInputOnFocus!=null){
-			setShowSoftInputOnFocus.setAccessible(true);
-		}
-		try {
-			setShowSoftInputOnFocus.invoke(codeInputEditText, false);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!Config.sKeyIgnore){
+			//∆¡±Œ»Ìº¸≈Ã
+			this.getWindow().setSoftInputMode(
+					WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+			Method setShowSoftInputOnFocus = null;
+			try {
+				setShowSoftInputOnFocus = codeInputEditText.getClass().getMethod(
+						"setShowSoftInputOnFocus", boolean.class);
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(setShowSoftInputOnFocus!=null){
+				setShowSoftInputOnFocus.setAccessible(true);
+			}
+			try {
+				setShowSoftInputOnFocus.invoke(codeInputEditText, false);
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

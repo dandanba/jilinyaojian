@@ -7,26 +7,23 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
-	<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
 
     <intent-filter>
-
- 　　   
         <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
 
-　　
+        <category android:name="android.intent.category.LAUNCHER" />
     </intent-filter>
 
     <application
-        android:icon="@drawable/icon"
         android:allowBackup="true"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-       
         android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
         <activity
             android:name=".activity.NFCActivity"
@@ -62,19 +59,18 @@
         </activity>
         <activity android:name=".activity.MainActivity" >
         </activity>
-		<activity android:name=".activity.PopAddInfoActivity" 
-		    	  android:theme="@style/popTheme">    
+        <activity
+            android:name=".activity.PopAddInfoActivity"
+            android:theme="@style/popTheme" >
         </activity>
-        <activity android:name=".activity.PopJSActivity" 
-		    	  android:theme="@style/popTheme">    
+        <activity
+            android:name=".activity.PopJSActivity"
+            android:theme="@style/popTheme" >
         </activity>
-        <activity 
-            android:name=".activity.OtherMenuActivity"
-            ></activity>
-        <activity 
-            android:name=".activity.OtherMainActivity"
-            ></activity>
-        
+        <activity android:name=".activity.OtherMenuActivity" >
+        </activity>
+        <activity android:name=".activity.OtherMainActivity" >
+        </activity>
 
         <instrumentation
             android:name="android.test.InstrumentationTestRunner"
@@ -84,7 +80,9 @@
         <uses-library
             android:name="android.test.runner"
             android:required="true" />
-        <activity android:name=".activity.StockInfoMatirials"></activity>
+
+        <activity android:name=".activity.StockInfoMatirials" >
+        </activity>
     </application>
 
 </manifest>

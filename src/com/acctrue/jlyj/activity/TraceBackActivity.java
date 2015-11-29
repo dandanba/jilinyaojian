@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.acctrue.jlyj.Config;
 import com.acctrue.jlyj.R;
 import com.acctrue.jlyj.adapter.FMAdapter;
 import com.acctrue.jlyj.adapter.FMAdapter2;
@@ -186,6 +187,7 @@ OnFocusChangeListener{
 
 		purchaseInListView.setAdapter(adapter);
 
+		if(!Config.sKeyIgnore){
 		
 		//∆¡±Œ»Ìº¸≈Ã
 		this.getWindow().setSoftInputMode(
@@ -212,6 +214,7 @@ OnFocusChangeListener{
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
 		}
 	}
 	

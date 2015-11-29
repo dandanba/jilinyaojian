@@ -3,6 +3,7 @@ package com.acctrue.jlyj.activity;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.acctrue.jlyj.Config;
 import com.acctrue.jlyj.R;
 import com.acctrue.jlyj.service.commonService;
 import com.acctrue.jlyj.util.Constants;
@@ -68,7 +69,7 @@ public class OpinionActivity extends Activity {
 		settingCropEditText.setText(crop);
 		userNameEditText.setText(userName);
 		settingTTSEditText.requestFocus();
-		
+		if(!Config.sKeyIgnore){
 		//ÆÁ±ÎÈí¼üÅÌ
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -98,45 +99,46 @@ public class OpinionActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+		}
 	}
 	
-//	@Override
-//	public boolean dispatchKeyEvent(KeyEvent event) {
-//		// TODO Auto-generated method stub
-//		if (event.getKeyCode() == 76) {
-//				Toast.makeText(this, "ÅäÖÃÐÅÏ¢ÒÑ¾­ÐÞ¸Ä", Toast.LENGTH_LONG).show();
-//				commonService.serverUrl = settingTTSEditText.getText().toString();
-//				commonService.cropCode = settingCropEditText.getText().toString();
-//				return true;		
-//		}
-//		// µã»÷*ºÅ¼ü
-//				if (event.getKeyCode() == 158) {
-//					Log.i(Constants.msg, "KEYCODE158");
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		// TODO Auto-generated method stub
+		if (event.getKeyCode() == 76) {
+				Toast.makeText(this, "ÅäÖÃÐÅÏ¢ÒÑ¾­ÐÞ¸Ä", Toast.LENGTH_LONG).show();
+				commonService.serverUrl = settingTTSEditText.getText().toString();
+				commonService.cropCode = settingCropEditText.getText().toString();
+				return true;		
+		}
+		// µã»÷*ºÅ¼ü
+				if (event.getKeyCode() == 158) {
+					Log.i(Constants.msg, "KEYCODE158");
+					event = new KeyEvent(event.getDownTime(), event.getEventTime(),
+							event.getAction(), KeyEvent.KEYCODE_PERIOD,
+							event.getRepeatCount(), event.getMetaState(),
+							event.getDeviceId(), event.getScanCode(), event.getFlags());
+				}
+//				// µã»÷-ºÅ¼ü,É¾³ý¼ü
+//				if (event.getKeyCode() == 156) {
 //					event = new KeyEvent(event.getDownTime(), event.getEventTime(),
-//							event.getAction(), KeyEvent.KEYCODE_PERIOD,
+//							event.getAction(), KeyEvent.KEYCODE_DEL,
 //							event.getRepeatCount(), event.getMetaState(),
 //							event.getDeviceId(), event.getScanCode(), event.getFlags());
-//				}
-////				// µã»÷-ºÅ¼ü,É¾³ý¼ü
-////				if (event.getKeyCode() == 156) {
-////					event = new KeyEvent(event.getDownTime(), event.getEventTime(),
-////							event.getAction(), KeyEvent.KEYCODE_DEL,
-////							event.getRepeatCount(), event.getMetaState(),
-////							event.getDeviceId(), event.getScanCode(), event.getFlags());
-////
-////				}
-//				if (event.getKeyCode() == 156) {
-////					event = new KeyEvent(event.getDownTime(), event.getEventTime(),
-////							event.getAction(), KeyEvent.KEYCODE_DEL,
-////							event.getRepeatCount(), event.getMetaState(),
-////							event.getDeviceId(), event.getScanCode(), event.getFlags());
-//					return false;
 //
 //				}
-//
-//		
-//		return super.dispatchKeyEvent(event);
-//	}
+				if (event.getKeyCode() == 156) {
+//					event = new KeyEvent(event.getDownTime(), event.getEventTime(),
+//							event.getAction(), KeyEvent.KEYCODE_DEL,
+//							event.getRepeatCount(), event.getMetaState(),
+//							event.getDeviceId(), event.getScanCode(), event.getFlags());
+					return false;
+
+				}
+
+		
+		return super.dispatchKeyEvent(event);
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode==KeyEvent.KEYCODE_BACK){

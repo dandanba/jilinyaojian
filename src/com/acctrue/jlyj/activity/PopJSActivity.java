@@ -3,6 +3,7 @@ package com.acctrue.jlyj.activity;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.acctrue.jlyj.Config;
 import com.acctrue.jlyj.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -103,7 +104,7 @@ public class PopJSActivity extends Activity {
 				}
 			}
 		});
-		
+		if(!Config.sKeyIgnore){
 		//∆¡±Œ»Ìº¸≈Ã
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -131,7 +132,7 @@ public class PopJSActivity extends Activity {
 			e.printStackTrace();
 		}
 		
-		
+		}
 		
 		
 	}
