@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/other_view"
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:background="@drawable/bj4_01"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2"
+        android:background="@drawable/bj3"
+        android:orientation="vertical" >
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bj1_03"
+                android:gravity="center"
+                android:orientation="vertical"
+                 >
+                 <TextView 
+                     android:id="@+id/other_menuTitle"
+                     android:layout_width="match_parent"
+                     android:layout_height="0dip"
+                     android:layout_weight="0.25"
+                     android:gravity="center"
+                     android:text="键位功能说明"
+                     android:textSize="25dp"
+                     android:textColor="@android:color/white"
+                     />
+                 <TextView 
+                     android:id="@+id/other_menu"
+                     android:layout_width="match_parent"
+                     android:layout_height="0dip"
+                     android:layout_weight="0.75"
+                     android:gravity="center_vertical"
+                     android:paddingLeft="40dp"
+                     android:textColor="@android:color/white"
+                     android:textSize="20dp"
+                     android:text="点击功能\n对应数字\n即可进入\n功能界面"
+                     />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

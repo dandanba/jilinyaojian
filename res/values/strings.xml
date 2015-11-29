@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">药品监管溯源系统</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_pop_add_info">PopAddInfoActivity</string>
+    <string name="title_activity_pop_js">PopJSActivity</string>
+    <string name="title_activity_other_menu">OtherMenuActivity</string>
+
+</resources>

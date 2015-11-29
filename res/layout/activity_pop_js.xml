@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="600dp"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".PopAddInfoActivity" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="结算"
+        android:background="#3366cc"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        />
+    
+    <TextView
+        android:id="@+id/js_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="实收:"
+            android:textSize="20dp"
+            />
+        <EditText 
+            android:id="@+id/fact_in_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/js_tv_1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="找零：-----"
+        />
+    
+    <Switch 
+        android:id="@+id/method_switch"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textOff="现金结算"
+        android:textOn="医保卡计算"
+        android:textSize="20dp"
+        />
+
+</LinearLayout>
