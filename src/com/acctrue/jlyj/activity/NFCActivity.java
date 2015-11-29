@@ -77,7 +77,7 @@ public class NFCActivity extends Activity {
 			userInfo.UserDisplayName = "";
 			userInfo.CorpCode = "";
 			userInfo.CorpName = "";
-			userInfo.CropType = 2;//
+			userInfo.CropType = 1;//
 			userInfo.Belong = "ÒÆ¶¯Í¨ÐÅ";
 			commonService.serverUrl = "http://192.168.20.185/acctrueTTS";
 			goIntoMenuActivity(userInfo);

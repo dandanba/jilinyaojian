@@ -24,7 +24,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb10" />
+                android:background="@drawable/tb10"
+                android:onClick="key1" />
         </LinearLayout>
 
         <LinearLayout
@@ -38,7 +39,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb9" />
+                android:background="@drawable/tb9"
+                android:onClick="key2" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,10 +52,10 @@
             android:padding="5dp" >
 
             <ImageButton
-                android:id="@+id/third_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb8" />
+                android:background="@drawable/tb8"
+                android:onClick="key3" />
         </LinearLayout>
     </LinearLayout>
 
@@ -65,10 +67,6 @@
         android:paddingBottom="80dp"
         android:paddingLeft="80dp"
         android:paddingRight="80dp" >
-        
-    
-
-      
     </LinearLayout>
 
 </LinearLayout>

@@ -24,7 +24,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb1" />
+                android:background="@drawable/tb1"
+                android:onClick="key1" />
         </LinearLayout>
 
         <LinearLayout
@@ -38,7 +39,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb2" />
+                android:background="@drawable/tb2"
+                android:onClick="key2" />
         </LinearLayout>
 
         <LinearLayout
@@ -52,7 +54,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb3" />
+                android:background="@drawable/tb3"
+                android:onClick="key3" />
         </LinearLayout>
     </LinearLayout>
 
@@ -76,7 +79,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb4" />
+                android:background="@drawable/tb4"
+                android:onClick="key4" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +94,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb5" />
+                android:background="@drawable/tb5"
+                android:onClick="key5" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,23 +109,25 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/tb6" />
+                android:background="@drawable/tb6"
+                android:onClick="key6" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:orientation="horizontal"
         android:paddingBottom="20dp"
-        android:paddingRight="20dp"
-        android:gravity="right" >
+        android:paddingRight="20dp" >
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:background="@drawable/tb7" />
+            android:background="@drawable/tb7"
+            android:onClick="key7" />
 
         <ImageButton
             android:layout_width="20dp"
