@@ -1,16 +1,14 @@
 package com.acctrue.jlyj.activity;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import android.app.ActivityGroup;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
-import android.graphics.Bitmap.CompressFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.media.AudioManager;
@@ -28,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.acctrue.jlyj.R;
+import com.acctrue.jlyj.event.ClickEvent;
 import com.acctrue.jlyj.service.commonService;
 import com.acctrue.jlyj.util.Constants;
 import com.acctrue.jlyj.util.Util;
@@ -208,6 +207,10 @@ public class MenuActivity extends ActivityGroup {
 					return false;
 				}
 				return super.onKeyUp(keyCode, event);
+	}
+	
+	public void onEvent(Object event){
+		final ClickEvent clickEvent = (ClickEvent) event;
 	}
 	
 	@Override
