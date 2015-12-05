@@ -42,7 +42,7 @@ import android.widget.Toast;
 @SuppressWarnings("deprecation")
 public class OtherMenuActivity extends ActivityGroup {
 
-	private static final String SDA_PATH = "/storage/external_storage/sda";
+	private static final String SDA_PATH =  "/storage/external_storage/sda/";
 
 	private LinearLayout view;
 
@@ -146,7 +146,7 @@ public class OtherMenuActivity extends ActivityGroup {
 			for (int i = 0; i < fileList.length; i++) {
 				String file = fileList[i];
 				if (!file.equals("sdcard1")) {
-					uPadFilePath = SDA_PATH + file;
+					uPadFilePath = SDA_PATH + "吉林省药品追溯";
 
 					// 检测到U盘的存在在U盘上创建文件夹
 					File modelDir = new File(uPadFilePath + "/药品监管_模版_文件");
@@ -155,13 +155,13 @@ public class OtherMenuActivity extends ActivityGroup {
 							+ "/药品监管_出入库台帐_文件");
 
 					if (!modelDir.exists()) {
-						modelDir.mkdir();
+						modelDir.mkdirs();
 					}
 					if (!iodataDir.exists()) {
-						iodataDir.mkdir();
+						iodataDir.mkdirs();
 					}
 					if (!producedataDir.exists()) {
-						producedataDir.mkdir();
+						producedataDir.mkdirs();
 					}
 					break;
 				}
@@ -202,6 +202,10 @@ public class OtherMenuActivity extends ActivityGroup {
 
 		final String theProduceDataPath1 = uPadFilePath + "/药品监管_模版_文件";
 
+		final File dir = new File(theProduceDataPath1);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
 		// 下载模版
 
 		new Thread(new Runnable() {
@@ -212,7 +216,6 @@ public class OtherMenuActivity extends ActivityGroup {
 				String downloadResult = "下载结果：\n";
 				try {
 
-					// if(commonService.cropType == 0){
 					HttpGet request0 = new HttpGet(
 							commonService.serverUrl
 									+ "/Portal/ScanServices/CodeService.svc/DownExcel/0");
@@ -229,7 +232,7 @@ public class OtherMenuActivity extends ActivityGroup {
 						if (modeProduceFile.exists()) {
 							modeProduceFile.delete();
 						}
-
+					
 						byte[] buffer = EntityUtils.toByteArray(response0
 								.getEntity());
 						FileOutputStream fout = new FileOutputStream(
@@ -276,7 +279,7 @@ public class OtherMenuActivity extends ActivityGroup {
 				} catch (Exception e) {
 					// TODO: handle exception
 					Message msg = new Message();
-					msg.obj = "下载结果：因网络连接问题下载失败";
+					msg.obj = e.toString();//"下载结果：因网络连接问题下载失败";
 					synchronousHandler.sendMessage(msg);
 				}
 
@@ -292,7 +295,7 @@ public class OtherMenuActivity extends ActivityGroup {
 	public void uploadIOData() {
 		System.out.println("点击了功能2");
 
-		final String theProduceDataPath = uPadFilePath + "//药品监管_出入库台帐_文件";
+		final String theProduceDataPath = uPadFilePath + "/药品监管_出入库台帐_文件";
 
 		File ProduceDataFile = new File(theProduceDataPath);
 
@@ -625,7 +628,8 @@ public class OtherMenuActivity extends ActivityGroup {
 			}
 		}).start();
 	}
-	public void onPhotoClick(View view){
+
+	public void onPhotoClick(View view) {
 		final ClickEvent event = new ClickEvent();
 		event.keyCode = 156;
 		event.keyEvent = "onKeyUp";
