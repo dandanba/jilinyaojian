@@ -6,10 +6,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.acctrue.jlyj.R;
+import com.acctrue.jlyj.activity.DialogShowItemClicker;
 import com.acctrue.jlyj.entity.lv_item3;
 
 public class FMAdapter3 extends BaseAdapter{
@@ -45,7 +47,7 @@ public class FMAdapter3 extends BaseAdapter{
  
         TextView tv_4;
         
-        TextView tv_7;
+      public  TextView tv_7;
  
     }
 	
@@ -77,7 +79,13 @@ public class FMAdapter3 extends BaseAdapter{
 			 
             // 导入布局并赋值给convertview  
             convertView = inflater.inflate(R.layout.lv_item3, null);
-            
+            DialogShowItemClicker clicker = new DialogShowItemClicker(
+					convertView.getContext());
+			convertView.setOnClickListener(clicker);
+			clicker.setAdapter(this);
+
+            final AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.FILL_PARENT, 100);
+            convertView.setLayoutParams(lp);
 //            if (position == selectIndex) {
 //				convertView.setBackgroundColor(Color.parseColor("#FF8800"));
 //			}
@@ -101,7 +109,7 @@ public class FMAdapter3 extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();  
  
 		}
-		
+		holder.tv_7.setTag(itemList.get(position));
 		// 设置list中TextView的显示  
         
 		 

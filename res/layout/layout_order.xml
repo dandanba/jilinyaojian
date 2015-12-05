@@ -53,36 +53,37 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" 
-                    >
-                    <TextView 
+                    android:orientation="horizontal" >
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="码:"/>
-                     <EditText
-                    android:id="@+id/data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/wb_03"
-                    android:singleLine="true" />
-                     
-                     <TextView 
+                        android:text="码:" />
+
+                    <EditText
+                        android:id="@+id/data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/wb_03"
+                         android:imeOptions="actionGo"
+                        android:singleLine="true" />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:visibility="gone"
-                        android:text="批次号:"/>
-                     <EditText
-                    android:id="@+id/batch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/wb_03"
-                    android:visibility="gone"
-                    android:singleLine="true" />
-                    
+                        android:text="批次号:"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/batch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/wb_03"
+                        android:singleLine="true"
+                        android:visibility="gone" />
                 </LinearLayout>
-               
 
                 <TextView
                     android:id="@+id/blank"

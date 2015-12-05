@@ -83,12 +83,32 @@
                         android:background="@drawable/wb_03"
                         android:singleLine="true"
                         android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/pageMenu"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:gravity="center" />
+
+                    <Button
+                        android:onClick="onReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="center"
-                        android:layout_gravity="right" />
+                        android:text="重置" />
+                     <Button
+                        android:onClick="onLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="上一页" />
+                      <Button
+                        android:onClick="onRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="下一页" />
                 </LinearLayout>
 
                 <TextView

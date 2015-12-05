@@ -44,7 +44,9 @@
                      android:layout_height="0dip"
                      android:layout_weight="0.25"
                      android:gravity="center"
-                     android:text="键位功能说明"
+                     android:clickable="true"
+                     android:onClick="onPhotoClick"
+                     android:text=""
                      android:textSize="25dp"
                      android:textColor="@android:color/white"
                      />
@@ -57,7 +59,7 @@
                      android:paddingLeft="40dp"
                      android:textColor="@android:color/white"
                      android:textSize="20dp"
-                     android:text="点击功能\n对应数字\n即可进入\n功能界面"
+                     android:text="帮助"
                      />
             </LinearLayout>
         </LinearLayout>

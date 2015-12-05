@@ -48,4 +48,6 @@ public class OtherMainActivity extends Activity {
 		event.keyCode = KeyEvent.KEYCODE_3;
 		EventBus.getDefault().post(event);
 	}
+
+	
 }

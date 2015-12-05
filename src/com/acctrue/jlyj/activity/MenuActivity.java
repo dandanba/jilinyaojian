@@ -21,6 +21,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,12 +62,6 @@ public class MenuActivity extends ActivityGroup {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		EventBus.getDefault().register(this);
-		// get请求允许设置
-		if (android.os.Build.VERSION.SDK_INT > 9) {
-			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-					.permitAll().build();
-			StrictMode.setThreadPolicy(policy);
-		}
 
 		// Activty初始化
 		init();
@@ -74,7 +70,16 @@ public class MenuActivity extends ActivityGroup {
 		Intent intent = new Intent(this, SaleOutActivity.class);
 		Util.switchActivity(view, intent, this);
 		isMain = 3;
-		menu.setText("=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+		menu.setText("结算");// "=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+
+		menu.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final String tag = ((TextView) v).getText().toString();
+				EventBus.getDefault().post(tag);
+			}
+		});
 	}
 
 	@Override
@@ -215,8 +220,14 @@ public class MenuActivity extends ActivityGroup {
 	}
 
 	public void onEvent(Object event) {
-		final ClickEvent clickEvent = (ClickEvent) event;
-		onKeyDown(clickEvent.keyCode, clickEvent.event);
+		if (event instanceof ClickEvent) {
+			final ClickEvent clickEvent = (ClickEvent) event;
+			if ("onKeyUp".equals(clickEvent.keyEvent)) {
+				onKeyUp(clickEvent.keyCode, clickEvent.event);
+				return;
+			}
+			onKeyDown(clickEvent.keyCode, clickEvent.event);
+		}
 	}
 
 	@Override
@@ -232,37 +243,37 @@ public class MenuActivity extends ActivityGroup {
 				intent = new Intent(this, PurchaseInActivity.class);
 				Util.switchActivity(view, intent, this);
 				isMain = 1;
-				menu.setText("=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+				menu.setText("上传");// "=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
 				break;
 			case KeyEvent.KEYCODE_2:
 				intent = new Intent(this, ReturnInActivity.class);
 				Util.switchActivity(view, intent, this);
 				isMain = 2;
-				menu.setText("=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+				menu.setText("上传");// "=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
 				break;
 			case KeyEvent.KEYCODE_3:
 				intent = new Intent(this, SaleOutActivity.class);
 				Util.switchActivity(view, intent, this);
 				isMain = 3;
-				menu.setText("=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+				menu.setText("结算");// "=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
 				break;
 			case KeyEvent.KEYCODE_4:
 				intent = new Intent(this, DataMaintenanceActivity.class);
 				Util.switchActivity(view, intent, this);
 				isMain = 4;
-				menu.setText("=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+				menu.setText("上传");// "=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
 				break;
 			case KeyEvent.KEYCODE_5:
 				intent = new Intent(this, TraceBackActivity.class);
 				Util.switchActivity(view, intent, this);
 				isMain = 5;
-				menu.setText("=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+				menu.setText("上传");// "=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
 				break;
 			case KeyEvent.KEYCODE_6:
 				intent = new Intent(this, StockInfoMatirials.class);
 				Util.switchActivity(view, intent, this);
 				isMain = 6;
-				menu.setText("=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
+				menu.setText("搜索");// "=.模式切换\n+.修改价格\n×.修改数量\n-.拍照\n÷.结算");
 				break;
 			case KeyEvent.KEYCODE_0:
 				intent = new Intent(this, OpinionActivity.class);
@@ -454,4 +465,10 @@ public class MenuActivity extends ActivityGroup {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	public void onPhotoClick(View view) {
+		final ClickEvent event = new ClickEvent();
+		event.keyCode = 156;
+		event.keyEvent = "onKeyUp";
+		EventBus.getDefault().post(event);
+	}
 }

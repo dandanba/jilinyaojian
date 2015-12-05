@@ -16,10 +16,13 @@ import com.acctrue.jlyj.service.commonService;
 import com.acctrue.jlyj.util.Constants;
 import com.acctrue.jlyj.util.Util;
 
+import de.greenrobot.event.EventBus;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,13 +31,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class DataMaintenanceActivity extends Activity implements
-OnFocusChangeListener{
+		OnFocusChangeListener {
 	private int sureCount;
 	private int dipatchChangeFocusCount; // 分发切换模式计数
 
@@ -63,9 +68,9 @@ OnFocusChangeListener{
 	private int lastKeyCode;
 
 	private int index;
-	
+
 	private int lastSelection;
-	
+
 	private TextView titleTV;
 
 	private Handler handler = new Handler() {
@@ -81,13 +86,14 @@ OnFocusChangeListener{
 				time -= 1;
 				if (time == 0) {
 					try {
-						index = Integer.parseInt(postion.toString().replace(".", ""));
+						index = Integer.parseInt(postion.toString().replace(
+								".", ""));
 					} catch (Exception e) {
-						postion=new StringBuffer();
+						postion = new StringBuffer();
 						return;
 					}
-					if(index>list.size()){
-						index=list.size();
+					if (index > list.size()) {
+						index = list.size();
 					}
 					adapter.selectIndex = index;
 					Log.i(Constants.msg, index + "");
@@ -108,8 +114,8 @@ OnFocusChangeListener{
 					purchaseInListView.setAdapter(adapter);
 					purchaseInListView.setSelection(index - 1);
 					purchaseInListView.requestFocus();
-					lastKeyCode=70;
-					Log.i(Constants.msg, "price"+postion.toString());
+					lastKeyCode = 70;
+					Log.i(Constants.msg, "price" + postion.toString());
 					postion = new StringBuffer();
 				}
 				break;
@@ -124,8 +130,8 @@ OnFocusChangeListener{
 					purchaseInListView.setAdapter(adapter);
 					purchaseInListView.setSelection(index - 1);
 					purchaseInListView.requestFocus();
-					lastKeyCode=70;
-					Log.i(Constants.msg, "num"+postion.toString());
+					lastKeyCode = 70;
+					Log.i(Constants.msg, "num" + postion.toString());
 					postion = new StringBuffer();
 				}
 				break;
@@ -140,26 +146,40 @@ OnFocusChangeListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
 		setContentView(R.layout.layout_order);
-		
+
 		// 数据、控件初始化
 		this.init();
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+
+	public void onEvent(Object event) {
+		if (event instanceof String) {
+			if (event.equals("上传")) {
+				upload();
+			}
+		}
+	}
+
 	private void init() {
 		// 生成出库单号
-		sureCount = 0; 
+		sureCount = 0;
 		dipatchChangeFocusCount = 0;
 		dipatchChangeNumCount = 0;
 		dipatchPriceCount = 0;
-		
 
 		purchaseInDocumentNum = Util.getDocumentNumFromDate();
 
-		titleTV = (TextView)this.findViewById(R.id.title);
+		titleTV = (TextView) this.findViewById(R.id.title);
 		titleTV.setText("数据维护");
-		
+
 		list = new ArrayList<lv_item>();
 
 		purchaseInListView = (ListView) this.findViewById(R.id.lv);
@@ -167,28 +187,44 @@ OnFocusChangeListener{
 		codeInputEditText = (EditText) this.findViewById(R.id.data);
 
 		blankTextView = (TextView) this.findViewById(R.id.blank);
+		if (!Config.sKeyIgnore) {
+			codeInputEditText.setOnFocusChangeListener(this);
 
-		codeInputEditText.setOnFocusChangeListener(this);
+			blankTextView.setOnFocusChangeListener(this);
+		} else {
+			codeInputEditText
+					.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+						public boolean onEditorAction(TextView v, int actionId,
+								KeyEvent event) {
+							if (actionId == EditorInfo.IME_ACTION_GO
+									|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+								// do something;
+								addData();
 
-		blankTextView.setOnFocusChangeListener(this);
+								return true;
+							}
+							return false;
+						}
 
+					});
+		}
 		adapter = new FMAdapter(list, this);
 
 		purchaseInListView.setAdapter(adapter);
 
-		if(!Config.sKeyIgnore){
-			//屏蔽软键盘
+		if (!Config.sKeyIgnore) {
+			// 屏蔽软键盘
 			this.getWindow().setSoftInputMode(
 					WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 			Method setShowSoftInputOnFocus = null;
 			try {
-				setShowSoftInputOnFocus = codeInputEditText.getClass().getMethod(
-						"setShowSoftInputOnFocus", boolean.class);
+				setShowSoftInputOnFocus = codeInputEditText.getClass()
+						.getMethod("setShowSoftInputOnFocus", boolean.class);
 			} catch (NoSuchMethodException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(setShowSoftInputOnFocus!=null){
+			if (setShowSoftInputOnFocus != null) {
 				setShowSoftInputOnFocus.setAccessible(true);
 			}
 			try {
@@ -205,71 +241,99 @@ OnFocusChangeListener{
 			}
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		codeInputEditText.requestFocus();
+		if (!Config.sKeyIgnore) {
+			codeInputEditText.requestFocus();
+		}
+	}
+
+	private void addData() {
+		haveGetCode(codeInputEditText.getText().toString());
 	}
 
 	private void haveGetCode(String code) {
+		new AsyncTask<String, Void, CodeInfo>() {
 
-		CodeInfo codeInfo = commonService.getCodeInfoByHttp(code);
-		if(codeInfo!=null){
-			
-			if (codeInfo.isYJCode) {
-				lv_item item = new lv_item();
-				item.item_1 = String.valueOf(list.size() + 1);
-				item.item_2 = codeInfo.produtCode;
-				item.item_3 = codeInfo.productName;
-				item.item_4 = codeInfo.productProduceDate;
-				item.item_5 = codeInfo.productBatchNum;
-				item.item_6 = codeInfo.produceCropName;
-				item.item_7 = codeInfo.productPrice;
-				item.item_8 = String.valueOf(1);
-				list.add(item);
-				purchaseInListView.setAdapter(adapter);
-				purchaseInListView.setSelection(list.size() - 1);
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 			}
-			else{
-				Intent addInfoIntent = new Intent(this, PopAddInfoActivity.class);
-				Bundle bundle=new Bundle();
-				bundle.putString("produtCode",codeInfo.produtCode);
-				bundle.putString("productName", codeInfo.productName);
-				bundle.putString("produceCropName", codeInfo.produceCropName);
-				bundle.putString("productPrice", codeInfo.productPrice);
-				addInfoIntent.putExtras(bundle);
-				startActivityForResult(addInfoIntent, 20);
+
+			@Override
+			protected CodeInfo doInBackground(String... params) {
+				CodeInfo codeInfo = commonService.getCodeInfoByHttp(params[0]);
+				return codeInfo;
 
 			}
-			
-		}else {
-			Toast.makeText(this, "没有查到该条码的产品信息", Toast.LENGTH_LONG).show();
-		}
-		
-		
-		
-		
-		
+
+			protected void onPostExecute(CodeInfo result) {
+				CodeInfo codeInfo = result;
+				if (codeInfo != null) {
+
+					if (codeInfo.isYJCode) {
+						lv_item item = new lv_item();
+						item.item_1 = String.valueOf(list.size() + 1);
+						item.item_2 = codeInfo.produtCode;
+						item.item_3 = codeInfo.productName;
+						item.item_4 = codeInfo.productProduceDate;
+						item.item_5 = codeInfo.productBatchNum;
+						item.item_6 = codeInfo.produceCropName;
+						item.item_7 = codeInfo.productPrice;
+						item.item_8 = String.valueOf(1);
+						list.add(item);
+						purchaseInListView.setAdapter(adapter);
+						purchaseInListView.setSelection(list.size() - 1);
+					} else {
+						Intent addInfoIntent = new Intent(
+								DataMaintenanceActivity.this,
+								PopAddInfoActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("produtCode", codeInfo.produtCode);
+						bundle.putString("productName", codeInfo.productName);
+						bundle.putString("produceCropName",
+								codeInfo.produceCropName);
+						bundle.putString("productPrice", codeInfo.productPrice);
+						addInfoIntent.putExtras(bundle);
+						startActivityForResult(addInfoIntent, 20);
+
+					}
+
+				} else {
+					Toast.makeText(DataMaintenanceActivity.this,
+							"没有查到该条码的产品信息", Toast.LENGTH_LONG).show();
+				}
+
+				codeInputEditText.setText("");
+				codeInputEditText.requestFocus();
+
+			};
+		}.execute(code);
+
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		
-		if (requestCode==20&&requestCode==20) {
-			
-			if(data==null){
-				return;      
+
+		if (requestCode == 20 && requestCode == 20) {
+
+			if (data == null) {
+				return;
 			}
-			
-			Bundle bundle=data.getExtras();
-			
+
+			Bundle bundle = data.getExtras();
+
 			lv_item item = new lv_item();
 			item.item_1 = String.valueOf(list.size() + 1);
-			item.item_2 = bundle.getString("produtCode","");
+			item.item_2 = bundle.getString("produtCode", "");
 			item.item_3 = bundle.getString("productName", "");
 			item.item_4 = bundle.getString("productProduceDate", "");
 			item.item_5 = bundle.getString("productBatchNum", "");
@@ -280,8 +344,7 @@ OnFocusChangeListener{
 			purchaseInListView.setAdapter(adapter);
 			purchaseInListView.setSelection(list.size() - 1);
 			;
-			
-			
+
 		}
 	}
 
@@ -346,7 +409,7 @@ OnFocusChangeListener{
 		if (event.getKeyCode() == 70) {
 
 			if (dipatchChangeFocusCount % 2 == 0) {
-				lastKeyCode=70;
+				lastKeyCode = 70;
 				if (timeFlag == false) {
 					codeInputEditText.clearFocus();
 					index = list.size();
@@ -393,40 +456,15 @@ OnFocusChangeListener{
 		// 点击/号键,结算，上传数据功能按钮，焦点回移
 		if (event.getKeyCode() == 76) {
 			System.out.println("点击计算按钮");
-			
-			if (sureCount % 2 == 1) {				
-				System.out.println("点击提交操作");
-				
-				if (list.size()==0) {
-					Toast.makeText(this, "修改列表为空!", Toast.LENGTH_LONG).show();
-					sureCount=0;
-					return true;
-				}
-				
-//				List<StoreItem> slist=new ArrayList<StoreItem>();
-				for (int i = 0; i < list.size(); i++) {
-					commonService.uploadPriceByHttp(list.get(i).item_2, list.get(i).item_7);
-//					StoreItem item=new StoreItem(list.get(i).item_2, Integer.parseInt(list.get(i).item_8), list.get(i).item_5, list.get(i).item_4, list.get(i).item_9);
-//					slist.add(item);
-				}
-				
-					Toast.makeText(this, "价格维护成功", Toast.LENGTH_LONG).show();
-					codeInputEditText.requestFocus();
-					index = -1;
-					adapter.selectIndex = index;
-					list.clear();
-					purchaseInListView.setAdapter(adapter);
-					purchaseInDocumentNum=Util.getDocumentNumFromDate();
 
-				sureCount=0;
-			}
-			else
-			{
+			if (sureCount % 2 == 1) {
+				System.out.println("点击提交操作");
+				upload();
+				sureCount = 0;
+			} else {
 				sureCount++;
 				return true;
 			}
-			
-			
 
 			return true;
 		}
@@ -440,14 +478,42 @@ OnFocusChangeListener{
 		}
 		// 点击-号键,删除键
 		if (event.getKeyCode() == 156) {
-//			event = new KeyEvent(event.getDownTime(), event.getEventTime(),
-//					event.getAction(), KeyEvent.KEYCODE_DEL,
-//					event.getRepeatCount(), event.getMetaState(),
-//					event.getDeviceId(), event.getScanCode(), event.getFlags());
+			// event = new KeyEvent(event.getDownTime(), event.getEventTime(),
+			// event.getAction(), KeyEvent.KEYCODE_DEL,
+			// event.getRepeatCount(), event.getMetaState(),
+			// event.getDeviceId(), event.getScanCode(), event.getFlags());
 			return false;
 		}
 
 		return super.dispatchKeyEvent(event);
+	}
+
+	private boolean upload() {
+
+		if (list.size() == 0) {
+			Toast.makeText(this, "修改列表为空!", Toast.LENGTH_LONG).show();
+			sureCount = 0;
+			return true;
+		}
+
+		// List<StoreItem> slist=new ArrayList<StoreItem>();
+		for (int i = 0; i < list.size(); i++) {
+			commonService.uploadPriceByHttp(list.get(i).item_2,
+					list.get(i).item_7);
+			// StoreItem item=new StoreItem(list.get(i).item_2,
+			// Integer.parseInt(list.get(i).item_8), list.get(i).item_5,
+			// list.get(i).item_4, list.get(i).item_9);
+			// slist.add(item);
+		}
+
+		Toast.makeText(this, "价格维护成功", Toast.LENGTH_LONG).show();
+		codeInputEditText.requestFocus();
+		index = -1;
+		adapter.selectIndex = index;
+		list.clear();
+		purchaseInListView.setAdapter(adapter);
+		purchaseInDocumentNum = Util.getDocumentNumFromDate();
+		return true;
 	}
 
 	@Override
@@ -484,7 +550,7 @@ OnFocusChangeListener{
 			if (event.getKeyCode() == 16) {
 				postion.append("9");
 			}
-			if(event.getKeyCode()==56){
+			if (event.getKeyCode() == 56) {
 				postion.append(".");
 			}
 			if (event.getKeyCode() == 158) {
@@ -492,24 +558,24 @@ OnFocusChangeListener{
 			}
 			if (event.getKeyCode() == 112) {
 				postion.append(".");
-			}		
-			if (lastKeyCode == 70&&keyCode!=23) {
+			}
+			if (lastKeyCode == 70 && keyCode != 23) {
 				beginTimer();
-			} else if (lastKeyCode == 157&&keyCode!=23) {
+			} else if (lastKeyCode == 157 && keyCode != 23) {
 				beginTimerPrice();
-			} else if (lastKeyCode == 155&&keyCode!=23) {
+			} else if (lastKeyCode == 155 && keyCode != 23) {
 				beginTimerNumber();
 			}
-			
+
 		}
-		if(keyCode==KeyEvent.KEYCODE_BACK){
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 		}
 		return super.onKeyUp(keyCode, event);
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode==KeyEvent.KEYCODE_BACK){
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);

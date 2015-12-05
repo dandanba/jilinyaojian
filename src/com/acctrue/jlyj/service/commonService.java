@@ -32,7 +32,7 @@ import com.acctrue.jlyj.entity.lv_item3;
 public class commonService {
 	public static int personflag;
 	public static String lastPhoto = "";
-	public static String serverUrl = "";
+	public static String serverUrl = "http://211.137.215.54:8080/TTS";
 	public static String cropCode = "";
 	public static int cropType;
 	public static String getData = "/Portal/ScanServices/GetJLProductInfo.svc/getProductInfoByCodeV2/";
@@ -114,6 +114,7 @@ public class commonService {
 		String Url = serverUrl + setOrder;
 		HttpPost request = new HttpPost(Url);
 		String entitystr = toJson2(stores);
+		System.out.println("======================="+entitystr);
 		try {
 			StringEntity entity = new StringEntity(entitystr, HTTP.UTF_8);
 			entity.setContentType("application/json");
@@ -361,10 +362,6 @@ public class commonService {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			
-			
-			
 			
 		}
 

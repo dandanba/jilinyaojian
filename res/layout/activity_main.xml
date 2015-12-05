@@ -55,7 +55,9 @@
                      android:layout_height="0dip"
                      android:layout_weight="0.25"
                      android:gravity="center"
-                     android:text="键位功能说明"
+                     android:text="拍照"
+                     android:clickable="true"
+                     android:onClick="onPhotoClick"
                      android:textSize="25dp"
                      android:textColor="@android:color/white"
                      />

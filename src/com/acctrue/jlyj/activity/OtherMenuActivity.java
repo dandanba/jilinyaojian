@@ -35,11 +35,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Base64;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
 public class OtherMenuActivity extends ActivityGroup {
+
+	private static final String SDA_PATH = "/storage/external_storage/sda";
 
 	private LinearLayout view;
 
@@ -106,10 +109,12 @@ public class OtherMenuActivity extends ActivityGroup {
 		super.onDestroy();
 		EventBus.getDefault().unregister(this);
 	}
-	
+
 	public void onEvent(Object event) {
-		final ClickEvent clickEvent = (ClickEvent) event;
-		onKeyDown(clickEvent.keyCode, clickEvent.event);
+		if (event instanceof ClickEvent) {
+			final ClickEvent clickEvent = (ClickEvent) event;
+			onKeyDown(clickEvent.keyCode, clickEvent.event);
+		}
 	}
 
 	protected void haveDownloadTheModel(String obj) {
@@ -121,9 +126,9 @@ public class OtherMenuActivity extends ActivityGroup {
 	@SuppressWarnings("unused")
 	public void checkTheUsbPad() {
 
-		File theExternalFile = new File("/storage/external_storage/");
+		File theExternalFile = new File(SDA_PATH);
 		String[] fileList = theExternalFile.list();
-		if (fileList.length == 1) {
+		if (fileList == null/* ||fileList.length == 1 */) {
 			AlertDialog dialog = new AlertDialog.Builder(OtherMenuActivity.this)
 					.setTitle("提示")
 					.setMessage("未检测到U盘，请先插入一个U盘后点击确定")
@@ -141,7 +146,7 @@ public class OtherMenuActivity extends ActivityGroup {
 			for (int i = 0; i < fileList.length; i++) {
 				String file = fileList[i];
 				if (!file.equals("sdcard1")) {
-					uPadFilePath = "/storage/external_storage/" + file;
+					uPadFilePath = SDA_PATH + file;
 
 					// 检测到U盘的存在在U盘上创建文件夹
 					File modelDir = new File(uPadFilePath + "/药品监管_模版_文件");
@@ -620,5 +625,10 @@ public class OtherMenuActivity extends ActivityGroup {
 			}
 		}).start();
 	}
-
+	public void onPhotoClick(View view){
+		final ClickEvent event = new ClickEvent();
+		event.keyCode = 156;
+		event.keyEvent = "onKeyUp";
+		EventBus.getDefault().post(event);
+	}
 }

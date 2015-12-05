@@ -2,82 +2,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:layout_gravity="center"
     android:background="@drawable/item_background"
     android:gravity="center"
-    android:layout_gravity="center" >
+    android:orientation="horizontal" >
+
     <TextView
-        android:id="@+id/dcoument_tv_1" 
+        android:id="@+id/dcoument_tv_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        
-        />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
     <TextView
-        android:id="@+id/dcoument_tv_2" 
+        android:id="@+id/dcoument_tv_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
     <TextView
-        android:id="@+id/dcoument_tv_3" 
+        android:id="@+id/dcoument_tv_3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
     <TextView
-        android:id="@+id/dcoument_tv_4" 
+        android:id="@+id/dcoument_tv_4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
     <TextView
-        android:id="@+id/dcoument_tv_5" 
+        android:id="@+id/dcoument_tv_5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
     <TextView
-        android:id="@+id/dcoument_tv_6" 
+        android:id="@+id/dcoument_tv_6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
     <TextView
-        android:id="@+id/dcoument_tv_7" 
+        android:id="@+id/dcoument_tv_7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        />
-     <TextView
-        android:id="@+id/dcoument_tv_8" 
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/dcoument_tv_8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:gravity="center"
         android:layout_gravity="center"
-        
-        />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textIsSelectable="true" />
+
 </LinearLayout>

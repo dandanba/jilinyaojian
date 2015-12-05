@@ -69,25 +69,16 @@ public class NFCActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_load);
+		// 允许主线程中进行网络操作
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
 
 		if (Config.sTest) {
-			UserInfo userInfo = null;
-			userInfo = new UserInfo();
-			userInfo.UserName = "张三";
-			userInfo.UserDisplayName = "";
-			userInfo.CorpCode = "";
-			userInfo.CorpName = "";
-			userInfo.CropType = 1;//
-			userInfo.Belong = "移动通信";
-			commonService.serverUrl = "http://192.168.20.185/acctrueTTS";
-			goIntoMenuActivity(userInfo);
+			checkTheCardNo("0000000000910");
 		} else {
-			// 允许主线程中进行网络操作
-			if (android.os.Build.VERSION.SDK_INT > 9) {
-				StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-						.permitAll().build();
-				StrictMode.setThreadPolicy(policy);
-			}
 
 			// 初始化NFC
 			initNFC();
@@ -211,7 +202,7 @@ public class NFCActivity extends Activity {
 				userInfo.CropType = object.getInt("CorpType");
 
 				userInfo.Belong = commonService.serverUrl
-						.equals("http://211.137.215.54:8080/tts") ? "移动通信"
+						.equals("http://211.137.215.54:8080/TTS") ? "移动通信"
 						: "吉视传媒";
 				// userInfo.Belong =
 				// commonService.serverUrl.equals("http://192.168.40.90:9090/TTS")?"移动通信":"吉视传媒";
@@ -224,7 +215,9 @@ public class NFCActivity extends Activity {
 				} else if (object.getInt("CorpType") == 3) {
 					if (object.getString("CorpRankText").equals("药店移动")
 							|| object.getString("CorpRankText")
-									.equals("药店吉视传媒")) {
+									.equals("药店吉视传媒") // add by wanggeng
+									|| object.getString("CorpRankText")
+									.equals("吉视传媒")) {
 						userInfo.CropType = 2;
 						this.goIntoMenuActivity(userInfo);
 
