@@ -279,7 +279,7 @@ public class OtherMenuActivity extends ActivityGroup {
 				} catch (Exception e) {
 					// TODO: handle exception
 					Message msg = new Message();
-					msg.obj = e.toString();//"下载结果：因网络连接问题下载失败";
+					msg.obj = "下载结果：因网络连接问题下载失败";
 					synchronousHandler.sendMessage(msg);
 				}
 

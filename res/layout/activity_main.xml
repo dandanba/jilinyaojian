@@ -66,10 +66,9 @@
                      android:layout_width="match_parent"
                      android:layout_height="0dip"
                      android:layout_weight="0.75"
-                     android:gravity="center_vertical"
-                     android:paddingLeft="40dp"
+                     android:gravity="center"
                      android:textColor="@android:color/white"
-                     android:textSize="20dp"
+                     android:textSize="25dp"
                      android:text="1.采购入库\n2.退货入库\n3.销售出库\n4.数据维护\n5.追溯上线\n6.配置"
                      />
             </LinearLayout>

@@ -3,14 +3,11 @@ package com.acctrue.jlyj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.acctrue.jlyj.R;
 import com.acctrue.jlyj.adapter.FMAdapter;
@@ -47,6 +44,7 @@ public class DialogShowItemClicker implements OnClickListener {
 		final View view = activity.getLayoutInflater().inflate(
 				R.layout.activity_edit_info, null);
 		alertDialog.setView(view);
+		final ViewGroup v = (ViewGroup) view.findViewById(R.id.price_input_layout);
 		priceEditText = (EditText) view.findViewById(R.id.price_input_et);
 		numberEditText = (EditText) view.findViewById(R.id.number_input_et);
 		view.findViewById(R.id.confirm_button).setOnClickListener(
@@ -79,15 +77,22 @@ public class DialogShowItemClicker implements OnClickListener {
 					.getTag();
 			priceEditText.setText(item2.item_7);
 			numberEditText.setText(item2.item_8);
+			
+			priceEditText.setSelection(item2.item_7.length());
+			numberEditText.setSelection(item2.item_8.length());
+
 		} else if (tag instanceof FMAdapter.ViewHolder) {
 			lv_item item = (lv_item) ((FMAdapter.ViewHolder) tag).tv_7.getTag();
 			priceEditText.setText(item.item_7);
 			numberEditText.setText(item.item_8);
+			priceEditText.setSelection(item.item_7.length());
+			numberEditText.setSelection(item.item_8.length());
 		} else if (tag instanceof FMAdapter3.ViewHolder) {
 			lv_item3 item3 = (lv_item3) ((FMAdapter3.ViewHolder) tag).tv_7
 					.getTag();
-			priceEditText.setVisibility(View.GONE);
+			v.setVisibility(View.GONE);
 			numberEditText.setText(item3.item_8);
+			numberEditText.setSelection(item3.item_8.length());
 		}
 		alertDialog.show();
 	}

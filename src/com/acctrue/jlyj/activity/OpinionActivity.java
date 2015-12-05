@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.acctrue.jlyj.Config;
@@ -20,9 +20,9 @@ import com.acctrue.jlyj.util.Constants;
 
 public class OpinionActivity extends Activity {
 
-	private EditText settingTTSEditText;
-	private EditText settingCropEditText;
-	private EditText userNameEditText;
+	private TextView settingTTSTextView;
+	private TextView settingCropTextView;
+	private TextView userNameTextView;
 	private int sureCount;
 
 	// private ImageView personImage;
@@ -49,34 +49,34 @@ public class OpinionActivity extends Activity {
 		// personInfo.setText("姓名：未识别\n"+"单位：未识别\n"+"职称：未识别\n"+"职责：未识别\n");
 		// }
 
-		settingTTSEditText = (EditText) this
+		settingTTSTextView = (TextView) this
 				.findViewById(R.id.setting_tts_editview);
-		//settingTTSEditText.setEnabled(false);
-		settingCropEditText = (EditText) this
+		//settingTTSTextView.setEnabled(false);
+		settingCropTextView = (TextView) this
 				.findViewById(R.id.setting_cropid_editview);
-		//settingCropEditText.setEnabled(false);
-		userNameEditText = (EditText) this
+		//settingCropTextView.setEnabled(false);
+		userNameTextView = (TextView) this
 				.findViewById(R.id.setting_username_editview);
-		//userNameEditText.setEnabled(false);
+		//userNameTextView.setEnabled(false);
 		SharedPreferences settings = getSharedPreferences("JL_Setting",
 				Context.MODE_PRIVATE);
 		String ttsServer = settings.getString("cropBelongs", "");
 		String crop = settings.getString("cropName", "");
 		String userName = settings.getString("userName", "");
 
-		settingTTSEditText.setText(ttsServer);
-		settingCropEditText.setText(crop);
-		userNameEditText.setText(userName);
+		settingTTSTextView.setText(ttsServer);
+		settingCropTextView.setText(crop);
+		userNameTextView.setText(userName);
 		if (!Config.sKeyIgnore) {
-			settingTTSEditText.requestFocus();
+			settingTTSTextView.requestFocus();
 			// 屏蔽软键盘
 			this.getWindow().setSoftInputMode(
 					WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 			Method setShowSoftInputOnFocus = null;
 			try {
-				setShowSoftInputOnFocus = settingTTSEditText.getClass()
+				setShowSoftInputOnFocus = settingTTSTextView.getClass()
 						.getMethod("setShowSoftInputOnFocus", boolean.class);
-				setShowSoftInputOnFocus = settingCropEditText.getClass()
+				setShowSoftInputOnFocus = settingCropTextView.getClass()
 						.getMethod("setShowSoftInputOnFocus", boolean.class);
 			} catch (NoSuchMethodException e) {
 				// TODO Auto-generated catch block
@@ -86,8 +86,8 @@ public class OpinionActivity extends Activity {
 				setShowSoftInputOnFocus.setAccessible(true);
 			}
 			try {
-				setShowSoftInputOnFocus.invoke(settingTTSEditText, false);
-				setShowSoftInputOnFocus.invoke(settingCropEditText, false);
+				setShowSoftInputOnFocus.invoke(settingTTSTextView, false);
+				setShowSoftInputOnFocus.invoke(settingCropTextView, false);
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -107,9 +107,9 @@ public class OpinionActivity extends Activity {
 			// TODO Auto-generated method stub
 			if (event.getKeyCode() == 76) {
 				Toast.makeText(this, "配置信息已经修改", Toast.LENGTH_LONG).show();
-				commonService.serverUrl = settingTTSEditText.getText()
+				commonService.serverUrl = settingTTSTextView.getText()
 						.toString();
-				commonService.cropCode = settingCropEditText.getText()
+				commonService.cropCode = settingCropTextView.getText()
 						.toString();
 				return true;
 			}
