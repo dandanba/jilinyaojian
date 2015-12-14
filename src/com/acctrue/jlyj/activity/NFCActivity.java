@@ -4,32 +4,21 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import com.acctrue.jlyj.Config;
-import com.acctrue.jlyj.R;
-import com.acctrue.jlyj.entity.SelectServerResult;
-import com.acctrue.jlyj.entity.UserInfo;
-import com.acctrue.jlyj.service.commonService;
-
-import com.acctrue.jlyj.update.UpdateResult;
-import com.acctrue.jlyj.update.UpdateThread;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,7 +40,14 @@ import android.os.StrictMode;
 import android.util.Base64;
 import android.widget.Toast;
 
-public class NFCActivity extends Activity {
+import com.acctrue.jlyj.Config;
+import com.acctrue.jlyj.entity.SelectServerResult;
+import com.acctrue.jlyj.entity.UserInfo;
+import com.acctrue.jlyj.service.commonService;
+import com.acctrue.jlyj.update.UpdateResult;
+import com.acctrue.jlyj.R;
+
+public class NFCActivity extends UmengActivity {
 
 	ProgressDialog updateProgress;
 	ProgressDialog downProgress;
@@ -66,7 +62,7 @@ public class NFCActivity extends Activity {
 	IntentFilter[] ia; // 意图过滤器列表
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_load);
 		// 允许主线程中进行网络操作
@@ -84,6 +80,7 @@ public class NFCActivity extends Activity {
 			initNFC();
 
 			this.selectServer();
+
 		}
 
 	}
@@ -134,13 +131,14 @@ public class NFCActivity extends Activity {
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if (!Config.sTest) {
+
+		if (nfcAdapter != null)
 			nfcAdapter.enableForegroundDispatch(this, pendingIntent, ia,
 					techListsArray);
-		}
+
 	}
 
 	private void processIntent(Intent intent) {
@@ -216,8 +214,7 @@ public class NFCActivity extends Activity {
 					if (object.getString("CorpRankText").equals("药店移动")
 							|| object.getString("CorpRankText")
 									.equals("药店吉视传媒") // add by wanggeng
-									|| object.getString("CorpRankText")
-									.equals("吉视传媒")) {
+							|| object.getString("CorpRankText").equals("吉视传媒")) {
 						userInfo.CropType = 2;
 						this.goIntoMenuActivity(userInfo);
 
@@ -342,9 +339,7 @@ public class NFCActivity extends Activity {
 		} else
 			throw new Exception("请准备SD卡");
 
-		savePath += "/"
-				+ getResources().getString(com.acctrue.jlyj.R.string.app_name)
-				+ ".apk";
+		savePath += "/" + getResources().getString(R.string.app_name) + ".apk";
 
 		System.out.println("App存储路径 ： " + savePath);
 

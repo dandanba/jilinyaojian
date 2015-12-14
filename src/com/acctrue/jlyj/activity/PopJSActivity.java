@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -21,7 +22,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class PopJSActivity extends Activity {
+public class PopJSActivity extends UmengActivity {
 
 	private double zl;
 
@@ -37,7 +38,7 @@ public class PopJSActivity extends Activity {
 	private boolean isYB;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pop_js);
 
@@ -89,8 +90,6 @@ public class PopJSActivity extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -108,6 +107,94 @@ public class PopJSActivity extends Activity {
 					jsTV_1.setText("’“¡„:" + String.valueOf(zl));
 				}
 
+			}
+		});
+
+		findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("1");
+			}
+		});
+		findViewById(R.id.button2).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("2");
+			}
+		});
+		findViewById(R.id.button3).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("3");
+			}
+		});
+		findViewById(R.id.button4).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("4");
+			}
+		});
+		findViewById(R.id.button5).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("5");
+			}
+		});
+		findViewById(R.id.button6).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("6");
+			}
+		});
+		findViewById(R.id.button7).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("7");
+			}
+		});
+		findViewById(R.id.button8).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("8");
+			}
+		});
+		findViewById(R.id.button9).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("9");
+			}
+		});
+		findViewById(R.id.button0).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				factInEditText.append("0");
+			}
+		});
+
+		findViewById(R.id.button_point).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						factInEditText.append(".");
+					}
+				});
+		findViewById(R.id.button_del).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final String text = factInEditText.getText().toString();
+				factInEditText.setText(text.substring(0, text.length() - 1));
 			}
 		});
 

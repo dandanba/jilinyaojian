@@ -7,7 +7,10 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
-
+    
+ 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,17 +19,26 @@
 
     <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
     </intent-filter>
 
     <application
         android:allowBackup="true"
+        android:name="com.acctrue.jlyj.ThisApplication"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+         <!-- Caution! Do not change this app key. It is only for demo usage. -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="566e10ef67e58ecf7a002b1f" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" >
+        </meta-data>
         <activity
-            android:name=".activity.NFCActivity"
+            android:name="com.acctrue.jlyj.activity.NFCActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,36 +55,36 @@
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
-        <activity android:name=".activity.MenuActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.MenuActivity" >
         </activity>
-        <activity android:name=".activity.PurchaseInActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.PurchaseInActivity" >
         </activity>
-        <activity android:name=".activity.DataMaintenanceActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.DataMaintenanceActivity" >
         </activity>
-        <activity android:name=".activity.OpinionActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.OpinionActivity" >
         </activity>
-        <activity android:name=".activity.ReturnInActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.ReturnInActivity" >
         </activity>
-        <activity android:name=".activity.SaleOutActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.SaleOutActivity" >
         </activity>
-        <activity android:name=".activity.TraceBackActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.TraceBackActivity" >
         </activity>
-        <activity android:name=".activity.MainActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.MainActivity" >
         </activity>
         <activity
-            android:name=".activity.PopAddInfoActivity"
+            android:name="com.acctrue.jlyj.activity.PopAddInfoActivity"
             android:theme="@style/popTheme" >
         </activity>
         <activity
-            android:name=".activity.PopJSActivity"
+            android:name="com.acctrue.jlyj.activity.PopJSActivity"
             android:theme="@style/popTheme" >
         </activity>
-        <activity android:name=".activity.OtherMenuActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.OtherMenuActivity" >
         </activity>
-        <activity android:name=".activity.OtherMainActivity" >
+        <activity android:name="com.acctrue.jlyj.activity.OtherMainActivity" >
         </activity>
 
-        <activity android:name=".activity.StockInfoMatirials" >
+        <activity android:name="com.acctrue.jlyj.activity.StockInfoMatirials" >
         </activity>
     </application>
 

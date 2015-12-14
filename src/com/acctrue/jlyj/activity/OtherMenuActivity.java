@@ -40,7 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
-public class OtherMenuActivity extends ActivityGroup {
+public class OtherMenuActivity extends UmengGroupActivity {
 
 	private static final String SDA_PATH =  "/storage/external_storage/sda/";
 
@@ -59,7 +59,7 @@ public class OtherMenuActivity extends ActivityGroup {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		EventBus.getDefault().register(this);
 		setContentView(R.layout.activity_other_menu);

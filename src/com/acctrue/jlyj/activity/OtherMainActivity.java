@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class OtherMainActivity extends Activity {
+public class OtherMainActivity extends UmengActivity {
 
 	// public ImageButton thirdBtn;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_othermain);

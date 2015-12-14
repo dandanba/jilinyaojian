@@ -37,7 +37,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ReturnInActivity extends Activity implements OnFocusChangeListener {
+public class ReturnInActivity extends UmengActivity implements
+		OnFocusChangeListener {
 
 	private int sureCount;
 
@@ -144,7 +145,7 @@ public class ReturnInActivity extends Activity implements OnFocusChangeListener 
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		EventBus.getDefault().register(this);
 		setContentView(R.layout.layout_order);
@@ -198,8 +199,9 @@ public class ReturnInActivity extends Activity implements OnFocusChangeListener 
 					.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 						public boolean onEditorAction(TextView v, int actionId,
 								KeyEvent event) {
-							if (actionId == EditorInfo.IME_ACTION_GO
-									|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							if ((event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) { // actionId
+																									// ==
+																									// EditorInfo.IME_ACTION_GO
 								// do something;
 								addData();
 
@@ -245,12 +247,17 @@ public class ReturnInActivity extends Activity implements OnFocusChangeListener 
 		}
 	}
 
-	private void addData() {
-		this.haveGetCode(codeInputEditText.getText().toString());
+	private int keyindex;
+
+	protected void addData() {
+		keyindex++;
+		if (keyindex % 2 == 1) {
+			this.haveGetCode(codeInputEditText.getText().toString());
+		}
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		if (!Config.sKeyIgnore) {

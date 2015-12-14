@@ -10,10 +10,10 @@ import com.acctrue.jlyj.event.ClickEvent;
 
 import de.greenrobot.event.EventBus;
 
-public class MainActivity extends Activity {
+public class MainActivity extends UmengActivity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_main);
 		// TODO …Ë÷√º‡Ã˝ ≤¢«“∑¢ÀÕEvent

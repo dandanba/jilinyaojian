@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -166,12 +167,17 @@ public class SaleOutActivity extends UsbprinterActivity implements
 		// 数据、控件初始化
 		this.init();
 	}
-	
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
 		EventBus.getDefault().unregister(this);
+
+		try {
+			super.onDestroy();
+		} catch (Exception e) {
+
+		}
+
 	}
 
 	public void onEvent(Object event) {
@@ -216,8 +222,10 @@ public class SaleOutActivity extends UsbprinterActivity implements
 					.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 						public boolean onEditorAction(TextView v, int actionId,
 								KeyEvent event) {
-							if (actionId == EditorInfo.IME_ACTION_GO
-									|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							if ((event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) { // actionId
+																									// ==
+																									// EditorInfo.IME_ACTION_GO
+																									// ||
 								// do something;
 								addData();
 
@@ -226,6 +234,7 @@ public class SaleOutActivity extends UsbprinterActivity implements
 							return false;
 						}
 					});
+
 		}
 
 		adapter = new FMAdapter2(list, this);
@@ -271,8 +280,13 @@ public class SaleOutActivity extends UsbprinterActivity implements
 		}
 	}
 
+	private int keyindex;
+
 	protected void addData() {
-		this.haveGetCode(this.codeInputEditText.getText().toString());
+		keyindex++;
+		if (keyindex % 2 == 1) {
+			this.haveGetCode(this.codeInputEditText.getText().toString());
+		}
 	}
 
 	@Override

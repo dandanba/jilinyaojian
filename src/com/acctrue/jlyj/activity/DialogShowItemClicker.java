@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 
@@ -28,6 +30,7 @@ public class DialogShowItemClicker implements OnClickListener {
 	private BaseAdapter adapter;
 	EditText priceEditText;
 	EditText numberEditText;
+	boolean focusedNumber;
 
 	@Override
 	public void onClick(View view) {
@@ -44,9 +47,189 @@ public class DialogShowItemClicker implements OnClickListener {
 		final View view = activity.getLayoutInflater().inflate(
 				R.layout.activity_edit_info, null);
 		alertDialog.setView(view);
-		final ViewGroup v = (ViewGroup) view.findViewById(R.id.price_input_layout);
+		final ViewGroup v = (ViewGroup) view
+				.findViewById(R.id.price_input_layout);
 		priceEditText = (EditText) view.findViewById(R.id.price_input_et);
 		numberEditText = (EditText) view.findViewById(R.id.number_input_et);
+		numberEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					focusedNumber = true;
+					InputMethodManager inputMethodManager = (InputMethodManager) activity
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
+					inputMethodManager.toggleSoftInput(0,
+							InputMethodManager.SHOW_FORCED);
+				}
+			}
+		});
+		priceEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					focusedNumber = false;
+					InputMethodManager inputMethodManager = (InputMethodManager) activity
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
+					inputMethodManager.toggleSoftInput(0,
+							InputMethodManager.SHOW_FORCED);
+				}
+			}
+		});
+
+		view.findViewById(R.id.button1).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("1");
+						} else {
+							priceEditText.append("1");
+						}
+					}
+				});
+		view.findViewById(R.id.button2).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("2");
+						} else {
+							priceEditText.append("2");
+						}
+					}
+				});
+		view.findViewById(R.id.button3).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("3");
+						} else {
+							priceEditText.append("3");
+						}
+					}
+				});
+		view.findViewById(R.id.button4).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("4");
+						} else {
+							priceEditText.append("4");
+						}
+					}
+				});
+		view.findViewById(R.id.button5).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("5");
+						} else {
+							priceEditText.append("5");
+						}
+					}
+				});
+		view.findViewById(R.id.button6).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("6");
+						} else {
+							priceEditText.append("6");
+						}
+					}
+				});
+		view.findViewById(R.id.button7).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("7");
+						} else {
+							priceEditText.append("7");
+						}
+					}
+				});
+		view.findViewById(R.id.button8).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("8");
+						} else {
+							priceEditText.append("8");
+						}
+					}
+				});
+		view.findViewById(R.id.button9).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("9");
+						} else {
+							priceEditText.append("9");
+						}
+					}
+				});
+		view.findViewById(R.id.button0).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append("0");
+						} else {
+							priceEditText.append("0");
+						}
+					}
+				});
+
+		view.findViewById(R.id.button_point).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							numberEditText.append(".");
+						} else {
+							priceEditText.append(".");
+						}
+					}
+				});
+		view.findViewById(R.id.button_del).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (focusedNumber) {
+							final String text = numberEditText.getText()
+									.toString();
+							numberEditText.setText(text.substring(0,
+									text.length() - 1));
+						} else {
+							final String text = priceEditText.getText()
+									.toString();
+							priceEditText.setText(text.substring(0,
+									text.length() - 1));
+						}
+					}
+				});
+
 		view.findViewById(R.id.confirm_button).setOnClickListener(
 				new OnClickListener() {
 
@@ -77,7 +260,7 @@ public class DialogShowItemClicker implements OnClickListener {
 					.getTag();
 			priceEditText.setText(item2.item_7);
 			numberEditText.setText(item2.item_8);
-			
+
 			priceEditText.setSelection(item2.item_7.length());
 			numberEditText.setSelection(item2.item_8.length());
 
@@ -94,7 +277,9 @@ public class DialogShowItemClicker implements OnClickListener {
 			numberEditText.setText(item3.item_8);
 			numberEditText.setSelection(item3.item_8.length());
 		}
+
 		alertDialog.show();
+
 	}
 
 	public void setAdapter(BaseAdapter adapter) {

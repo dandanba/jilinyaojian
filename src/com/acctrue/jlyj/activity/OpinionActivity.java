@@ -18,7 +18,7 @@ import com.acctrue.jlyj.R;
 import com.acctrue.jlyj.service.commonService;
 import com.acctrue.jlyj.util.Constants;
 
-public class OpinionActivity extends Activity {
+public class OpinionActivity extends UmengActivity {
 
 	private TextView settingTTSTextView;
 	private TextView settingCropTextView;
@@ -28,7 +28,7 @@ public class OpinionActivity extends Activity {
 	// private ImageView personImage;
 	// private TextView personInfo;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		sureCount = 0;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_opinion);

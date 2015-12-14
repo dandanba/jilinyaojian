@@ -36,8 +36,7 @@ import com.acctrue.jlyj.util.Util;
 import de.greenrobot.event.EventBus;
 
 @SuppressWarnings("deprecation")
-public class MenuActivity extends ActivityGroup {
-
+public class MenuActivity extends UmengGroupActivity {
 	// ¾Ö²¿Ë¢ÐÂview
 	LinearLayout view;
 
@@ -58,7 +57,7 @@ public class MenuActivity extends ActivityGroup {
 	private TextView menu;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		EventBus.getDefault().register(this);
@@ -82,11 +81,19 @@ public class MenuActivity extends ActivityGroup {
 		});
 	}
 
+
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
 		EventBus.getDefault().unregister(this);
+		
+		try {
+			super.onDestroy();
+		} catch (Exception e) {
+
+		}
+		
 	}
+
 
 	private void init() {
 
@@ -171,7 +178,7 @@ public class MenuActivity extends ActivityGroup {
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 
 	}

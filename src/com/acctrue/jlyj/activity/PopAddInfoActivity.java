@@ -3,15 +3,9 @@ package com.acctrue.jlyj.activity;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.acctrue.jlyj.Config;
-import com.acctrue.jlyj.R;
-import com.acctrue.jlyj.R.layout;
-import com.acctrue.jlyj.R.menu;
-import com.acctrue.jlyj.util.Constants;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -19,7 +13,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-public class PopAddInfoActivity extends Activity {
+import com.acctrue.jlyj.Config;
+import com.acctrue.jlyj.util.Constants;
+import com.acctrue.jlyj.R;
+
+public class PopAddInfoActivity extends UmengActivity {
 
 	private int sureCount;
 	private Bundle bundle;
@@ -28,7 +26,7 @@ public class PopAddInfoActivity extends Activity {
 	private EditText dateEditText;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pop_add_info);
 

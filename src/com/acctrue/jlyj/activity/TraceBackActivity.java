@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -167,8 +168,14 @@ public class TraceBackActivity extends UsbprinterActivity implements
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
 		EventBus.getDefault().unregister(this);
+
+		try {
+			super.onDestroy();
+		} catch (Exception e) {
+
+		}
+
 	}
 
 	public void onEvent(Object event) {
@@ -209,8 +216,9 @@ public class TraceBackActivity extends UsbprinterActivity implements
 					.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 						public boolean onEditorAction(TextView v, int actionId,
 								KeyEvent event) {
-							if (actionId == EditorInfo.IME_ACTION_GO
-									|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							if ((event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) { // actionId
+																									// ==
+																									// EditorInfo.IME_ACTION_GO
 								// do something;
 								addData();
 
@@ -219,6 +227,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 							return false;
 						}
 					});
+
 		}
 
 		adapter = new FMAdapter2(list, this);
@@ -256,8 +265,13 @@ public class TraceBackActivity extends UsbprinterActivity implements
 		}
 	}
 
+	private int keyindex;
+
 	protected void addData() {
-		this.haveGetCode(this.codeInputEditText.getText().toString());
+		keyindex++;
+		if (keyindex % 2 == 1) {
+			this.haveGetCode(this.codeInputEditText.getText().toString());
+		}
 	}
 
 	@Override
@@ -265,7 +279,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 		// TODO Auto-generated method stub
 		super.onResume();
 		if (!Config.sKeyIgnore) {
-//			codeInputEditText.requestFocus();
+			// codeInputEditText.requestFocus();
 		}
 	}
 
@@ -349,7 +363,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 				imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
 				codeInputEditText.setText("");
-//				codeInputEditText.requestFocus();
+				// codeInputEditText.requestFocus();
 				return;
 			}
 		}
@@ -398,7 +412,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 					if (!isSuccess) {
 						Toast.makeText(TraceBackActivity.this, "上传失败",
 								Toast.LENGTH_LONG).show();
-//						codeInputEditText.requestFocus();
+						// codeInputEditText.requestFocus();
 						index = -1;
 						adapter.selectIndex = index;
 						purchaseInListView.setAdapter(adapter);
@@ -406,7 +420,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 					} else {
 						Toast.makeText(TraceBackActivity.this, "上传成功",
 								Toast.LENGTH_LONG).show();
-//						codeInputEditText.requestFocus();
+						// codeInputEditText.requestFocus();
 						index = -1;
 						adapter.selectIndex = index;
 						list.clear();
@@ -415,7 +429,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 					}
 
 					codeInputEditText.setText("");
-//					codeInputEditText.requestFocus();
+					// codeInputEditText.requestFocus();
 				};
 			}.execute(stores);
 
@@ -484,7 +498,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 					}
 
 					codeInputEditText.setText("");
-					//codeInputEditText.requestFocus();
+					// codeInputEditText.requestFocus();
 				};
 
 			}.execute(stores);
@@ -530,7 +544,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 				}
 
 				codeInputEditText.setText("");
-//				codeInputEditText.requestFocus();
+				// codeInputEditText.requestFocus();
 			};
 
 		}.execute(code);
@@ -555,7 +569,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 
 				codeInputEditText.setText("");
 				// Log.i(Constants.msg, "get_blank");
-//				codeInputEditText.requestFocus();
+				// codeInputEditText.requestFocus();
 			} else {
 				// Log.i(Constants.msg, "lost_blank");
 			}
@@ -618,7 +632,7 @@ public class TraceBackActivity extends UsbprinterActivity implements
 						timeFlag = true;
 					} else {
 						timeFlag = false;
-//						codeInputEditText.requestFocus();
+						// codeInputEditText.requestFocus();
 
 						index = -1;
 						adapter.selectIndex = index;

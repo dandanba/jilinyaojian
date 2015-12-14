@@ -32,7 +32,7 @@ import com.acctrue.jlyj.util.Util;
 
 import de.greenrobot.event.EventBus;
 
-public class StockInfoMatirials extends Activity implements
+public class StockInfoMatirials extends UmengActivity implements
 		OnFocusChangeListener {
 
 	private ListView purchaseInListView; // 采购入库码列表
@@ -143,7 +143,7 @@ public class StockInfoMatirials extends Activity implements
 	private int dipatchLeft;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		EventBus.getDefault().register(this);
 		setContentView(R.layout.layout_order3);
@@ -167,7 +167,7 @@ public class StockInfoMatirials extends Activity implements
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		if (!Config.sKeyIgnore) {
 			codeInputEditText.requestFocus();

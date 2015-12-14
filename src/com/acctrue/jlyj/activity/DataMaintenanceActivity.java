@@ -196,8 +196,9 @@ public class DataMaintenanceActivity extends Activity implements
 					.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 						public boolean onEditorAction(TextView v, int actionId,
 								KeyEvent event) {
-							if (actionId == EditorInfo.IME_ACTION_GO
-									|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							if ((event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) { // actionId
+																									// ==
+																									// EditorInfo.IME_ACTION_GO
 								// do something;
 								addData();
 
@@ -251,8 +252,13 @@ public class DataMaintenanceActivity extends Activity implements
 		}
 	}
 
-	private void addData() {
-		haveGetCode(codeInputEditText.getText().toString());
+	private int keyindex;
+
+	protected void addData() {
+		keyindex++;
+		if (keyindex % 2 == 1) {
+			haveGetCode(codeInputEditText.getText().toString());
+		}
 	}
 
 	private void haveGetCode(String code) {

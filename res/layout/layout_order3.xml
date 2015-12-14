@@ -66,6 +66,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="@drawable/wb_03"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
                         android:singleLine="true" />
 
                     <TextView
@@ -81,6 +83,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="@drawable/wb_03"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
                         android:singleLine="true"
                         android:visibility="gone" />
 
@@ -92,22 +96,24 @@
                         android:gravity="center" />
 
                     <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:onClick="onReset"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
                         android:text="重置" />
-                     <Button
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:onClick="onLeft"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
                         android:text="上一页" />
-                      <Button
-                        android:onClick="onRight"
+
+                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
+                        android:onClick="onRight"
                         android:text="下一页" />
                 </LinearLayout>
 
