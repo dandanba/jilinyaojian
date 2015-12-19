@@ -1,11 +1,15 @@
 package com.acctrue.jlyj.activity;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.os.Bundle;
 
 import com.umeng.analytics.MobclickAgent;
 
 public class UmengActivity extends Activity {
+	
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

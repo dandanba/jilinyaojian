@@ -219,13 +219,21 @@ public class DialogShowItemClicker implements OnClickListener {
 						if (focusedNumber) {
 							final String text = numberEditText.getText()
 									.toString();
-							numberEditText.setText(text.substring(0,
-									text.length() - 1));
+							final int size = text.length() - 1;
+							if (size > 0) {
+								numberEditText.setText(text.substring(0, size));
+							} else {
+								numberEditText.setText("");
+							}
 						} else {
 							final String text = priceEditText.getText()
 									.toString();
-							priceEditText.setText(text.substring(0,
-									text.length() - 1));
+							final int size = text.length() - 1;
+							if (size > 0) {
+								priceEditText.setText(text.substring(0, size));
+							} else {
+								priceEditText.setText("");
+							}
 						}
 					}
 				});

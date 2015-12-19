@@ -2,6 +2,7 @@ package com.acctrue.jlyj.activity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,20 @@ import de.greenrobot.event.EventBus;
 
 public class SaleOutActivity extends UsbprinterActivity implements
 		OnFocusChangeListener {
+
+	public String toFormatString(String d) {
+		final double zj = Double.parseDouble(d);
+		float number = (float) (Math.round(zj * 100)) / 100;
+		DecimalFormat decimalFormat = new DecimalFormat(".00");
+		return decimalFormat.format(number);
+	}
+
+	public String toFormatString(double zj) {
+
+		float number = (float) (Math.round(zj * 100)) / 100;
+		DecimalFormat decimalFormat = new DecimalFormat(".00");
+		return decimalFormat.format(number);
+	}
 
 	private boolean isInEditModel;
 
@@ -439,7 +454,7 @@ public class SaleOutActivity extends UsbprinterActivity implements
 
 			PRN_PrintText("--------------------------------\r\n",
 					ALIGNMENT_LEFT, FT_DEFAULT, TS_0WIDTH | TS_0HEIGHT);
-			PRN_PrintText("总额: " + allMoney + "\r\n", ALIGNMENT_RIGHT,
+			PRN_PrintText("总额: " + toFormatString(allMoney) + "\r\n", ALIGNMENT_RIGHT,
 					FT_DEFAULT, TS_0WIDTH | TS_0HEIGHT);
 			PRN_PrintText("实收: " + bundle.getString("infact") + "\r\n",
 					ALIGNMENT_RIGHT, FT_DEFAULT, TS_0WIDTH | TS_0HEIGHT);

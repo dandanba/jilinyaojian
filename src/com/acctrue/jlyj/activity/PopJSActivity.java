@@ -2,6 +2,7 @@ package com.acctrue.jlyj.activity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 
 import com.acctrue.jlyj.Config;
 import com.acctrue.jlyj.R;
@@ -23,6 +24,20 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 public class PopJSActivity extends UmengActivity {
+
+	public String toFormatString(String d) {
+		final double zj = Double.parseDouble(d);
+		float number = (float) (Math.round(zj * 100)) / 100;
+		DecimalFormat decimalFormat = new DecimalFormat(".00");
+		return decimalFormat.format(number);
+	}
+
+	public String toFormatString(double zj) {
+
+		float number = (float) (Math.round(zj * 100)) / 100;
+		DecimalFormat decimalFormat = new DecimalFormat(".00");
+		return decimalFormat.format(number);
+	}
 
 	private double zl;
 
@@ -81,7 +96,7 @@ public class PopJSActivity extends UmengActivity {
 
 		String title = "µ•∫≈£∫" + bundle.getString("batchNum") + "\n\n";
 
-		String money = "◊‹º∆£∫" + bundle.getString("Money") + "\n";
+		String money = "◊‹º∆£∫" + toFormatString(bundle.getString("Money")) + "\n";
 
 		jsTV.setText(title + money);
 
@@ -95,8 +110,6 @@ public class PopJSActivity extends UmengActivity {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -104,7 +117,7 @@ public class PopJSActivity extends UmengActivity {
 				if (s != null && s.length() > 0) {
 					zl = Double.parseDouble(s.toString())
 							- Double.parseDouble(bundle.getString("Money"));
-					jsTV_1.setText("’“¡„:" + String.valueOf(zl));
+					jsTV_1.setText("’“¡„:" + toFormatString(zl));
 				}
 
 			}
@@ -189,64 +202,74 @@ public class PopJSActivity extends UmengActivity {
 						factInEditText.append(".");
 					}
 				});
+
 		findViewById(R.id.button_del).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				final String text = factInEditText.getText().toString();
-				factInEditText.setText(text.substring(0, text.length() - 1));
+				final int size = text.length() - 1;
+				if (size > 0) {
+					factInEditText.setText(text.substring(0, size));
+				} else {
+					factInEditText.setText("");
+				}
 			}
 		});
 
-		if (!Config.sKeyIgnore) {
-			factInEditText
-					.setOnFocusChangeListener(new OnFocusChangeListener() {
-
-						@Override
-						public void onFocusChange(View v, boolean hasFocus) {
-							// TODO Auto-generated method stub
-							if (hasFocus) {
-								factInEditText.setText("");
-								jsTV_1.setText("’“¡„:-----");
-
-							} else {
-								zl = Double.parseDouble(factInEditText
-										.getText().toString())
-										- Double.parseDouble(bundle
-												.getString("Money"));
-								jsTV_1.setText("’“¡„:" + String.valueOf(zl));
-
-							}
-						}
-					});
-			// ∆¡±Œ»Ìº¸≈Ã
-			this.getWindow().setSoftInputMode(
-					WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-			Method setShowSoftInputOnFocus = null;
-			try {
-				setShowSoftInputOnFocus = factInEditText.getClass().getMethod(
-						"setShowSoftInputOnFocus", boolean.class);
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (setShowSoftInputOnFocus != null) {
-				setShowSoftInputOnFocus.setAccessible(true);
-			}
-			try {
-				setShowSoftInputOnFocus.invoke(factInEditText, false);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
+		// if (!Config.sKeyIgnore) {
+		// factInEditText
+		// .setOnFocusChangeListener(new OnFocusChangeListener() {
+		//
+		// @Override
+		// public void onFocusChange(View v, boolean hasFocus) {
+		// // TODO Auto-generated method stub
+		// if (hasFocus) {
+		// factInEditText.setText("");
+		// jsTV_1.setText("’“¡„:-----");
+		//
+		// } else {
+		// zl = Double.parseDouble(factInEditText
+		// .getText().toString())
+		// - Double.parseDouble(bundle
+		// .getString("Money"));
+		// float number = (float) (Math.round(zl * 100)) / 100;
+		// DecimalFormat decimalFormat = new DecimalFormat(
+		// ".00");
+		// jsTV_1.setText("’“¡„:"
+		// + decimalFormat.format(number));
+		//
+		// }
+		// }
+		// });
+		// // ∆¡±Œ»Ìº¸≈Ã
+		// this.getWindow().setSoftInputMode(
+		// WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		// Method setShowSoftInputOnFocus = null;
+		// try {
+		// setShowSoftInputOnFocus = factInEditText.getClass().getMethod(
+		// "setShowSoftInputOnFocus", boolean.class);
+		// } catch (NoSuchMethodException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// if (setShowSoftInputOnFocus != null) {
+		// setShowSoftInputOnFocus.setAccessible(true);
+		// }
+		// try {
+		// setShowSoftInputOnFocus.invoke(factInEditText, false);
+		// } catch (IllegalArgumentException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (IllegalAccessException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (InvocationTargetException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// }
 
 	}
 
