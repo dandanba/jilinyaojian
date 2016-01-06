@@ -42,7 +42,7 @@ import android.widget.Toast;
 @SuppressWarnings("deprecation")
 public class OtherMenuActivity extends UmengGroupActivity {
 
-	private static final String SDA_PATH =  "/storage/external_storage/sda/";
+	private static final String SDA_PATH =  "/storage/external_storage/sda1/";
 
 	private LinearLayout view;
 
